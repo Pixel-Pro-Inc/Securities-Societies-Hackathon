@@ -5,9 +5,10 @@
     "\\Societies\\client",
     "\\Societies\\client\\src",
     "\\Societies\\client\\src\\app",
-    "\\Societies\\client\\src\\app\\nav",
+    "\\Societies\\client\\src\\app\\compliance",
+    "\\Societies\\client\\src\\app\\register",
     "\\Societies\\client\\src\\app\\_services"
   ],
-  "SelectedNode": "\\Societies\\client\\src\\app\\_services\\loginservice.service.ts",
+  "SelectedNode": "\\Societies\\client\\src\\app\\compliance\\compliance.component.ts",
   "PreviewInSolutionExplorer": false
 }
