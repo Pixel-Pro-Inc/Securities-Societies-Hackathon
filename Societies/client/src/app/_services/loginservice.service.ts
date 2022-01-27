@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export class LoginserviceService {
+export class LoginService {
 
   constructor() { }
+
+  logout = () => localStorage.removeItem('user');
 }
