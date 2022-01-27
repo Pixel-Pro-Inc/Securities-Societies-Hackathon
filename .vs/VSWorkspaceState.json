@@ -1,13 +1,13 @@
 {
   "ExpandedNodes": [
     "",
-    "\\node_modules",
     "\\Societies",
     "\\Societies\\client",
     "\\Societies\\client\\src",
     "\\Societies\\client\\src\\app",
-    "\\Societies\\client\\src\\app\\nav"
+    "\\Societies\\client\\src\\app\\nav",
+    "\\Societies\\client\\src\\app\\_services"
   ],
-  "SelectedNode": "\\node_modules\\ngx-bootstrap",
+  "SelectedNode": "\\Societies\\client\\src\\app\\_services\\loginservice.service.ts",
   "PreviewInSolutionExplorer": false
 }
