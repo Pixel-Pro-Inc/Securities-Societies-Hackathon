@@ -1,10 +1,13 @@
 {
   "ExpandedNodes": [
     "",
+    "\\node_modules",
     "\\Societies",
+    "\\Societies\\client",
     "\\Societies\\client\\src",
-    "\\Societies\\client\\src\\app"
+    "\\Societies\\client\\src\\app",
+    "\\Societies\\client\\src\\app\\nav"
   ],
-  "SelectedNode": "\\Societies",
+  "SelectedNode": "\\node_modules\\ngx-bootstrap",
   "PreviewInSolutionExplorer": false
 }
