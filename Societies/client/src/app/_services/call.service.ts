@@ -1,15 +1,11 @@
 import { Injectable } from '@angular/core';
-import { MasterService } from './master.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CallService extends MasterService{
+export class CallService{
 
-  constructor()
-  {
-    super();
-  }
+  constructor() { }
 
   call(num: string){
     window.open('tel:' + num);

@@ -49,5 +49,9 @@ export class AccountService{
       }
     );
   }
+
+  logout(){
+    this.shared.removeUser();
+  }
   
 }

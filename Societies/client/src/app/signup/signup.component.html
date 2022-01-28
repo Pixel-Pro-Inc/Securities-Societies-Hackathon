@@ -4,7 +4,7 @@
             <form [formGroup]='signupForm' (ngSubmit)="signupForm.valid && createAccount()" autocomplete="off">                
                 <div class="bg-light form-stage shadow-sm" *ngIf="!firstdone">
                     <h4 class="font-weight-bold text-center">Create Your Free Account</h4>
-                    <small class="text-warning mt-3">We do not store your omang in our database</small>
+                    <p><small class="text-warning mt-3">We do not store your omang in our database</small></p>
                     <button *ngIf="!showOmang" class="btn btn-success mb-3" (click)="toggleShowOmangForm()" style="width: 100%"><i class="fa fa-id-card mr-2"></i>Quick Fill With Omang</button>
                     <div *ngIf="showOmang">
                         <p><label class="mb-1">Upload a picture of the front of your omang</label></p>
@@ -22,13 +22,14 @@
                     <app-date-input [formControl]='signupForm.controls["dateofbirth"]' [label]='"date of birth"'></app-date-input>                    
                     <div class="text-center">
                         <button class="btn btn-primary btn-circle" (click)="!form1Complete() && toggleShowDone()" [disabled]='form1Complete()'><i class="fa fa-chevron-right" style="padding-left: 2px;"></i></button>
+                        <button class="btn btn-primary text-light" routerLink="/login">Alreay have an account? Sign in</button>
                     </div>                    
                 </div>
                 
                 <div class="bg-light form-stage shadow-sm" *ngIf="firstdone">
                     <h4 class="font-weight-bold text-center">Complete Your Free Account</h4>
                     <hr>
-                    <small class="text-warning">We use emails and sms to update you with feedback and restore your password if its ever forgotten</small>
+                    <p><small class="text-warning">We use emails and sms to update you with feedback and restore your password if its ever forgotten</small></p>
                     <label>Enter your email</label>
                     <app-text-input [formControl]='signupForm.controls["email"]' [label]='"email address"' [type]='"email"' [placeholder]='"thabothebe@gmail.com"'></app-text-input>
                     <label>Enter your phone number</label>
