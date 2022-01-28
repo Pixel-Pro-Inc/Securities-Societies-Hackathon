@@ -46,3 +46,7 @@ testem.log
 Thumbs.db
 config
 v16
+
+.suo
+slnx.sqlite
+appsettings.json
