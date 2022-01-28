@@ -10,13 +10,14 @@ import { Application } from '../_models/application';
 })
 export class DashService  {
 
+
   constructor(private shared: SharedService) { }
 
   getapplications(model: any, dir: string) {
     //dir can be any combination of required call to the API. So a call for reports/totalapplications will go into the parameters and thats what's going to be called
     //The known list is
     /**
-    * report/ totalapplication
+    * report/totalapplication
     * report/inprocessapplication
     * report/rejectedapplication
     */
@@ -36,7 +37,7 @@ export class DashService  {
     )
   }
 
-  exportToExcel(branchId: string) {
-    window.open(this.shared.baseUrl + 'excel/export/' + branchId);
+  exportToExcel() {
+    window.open(this.shared.baseUrl + 'excel/export/');
   }
 }

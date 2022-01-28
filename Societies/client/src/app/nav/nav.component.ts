@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Messages } from '../_models/messages';
 import { AccountService } from '../_services/account.service';
 import { SharedService } from '../_services/shared.service';
+import { SiteNotifications } from '../_models/site-notifications';
 
 @Component({
   selector: 'app-nav',
@@ -12,6 +13,7 @@ export class NavComponent implements OnInit {
 
   constructor(private accountService: AccountService, private shared: SharedService) { }
   messages: Messages[] = [];
+  notifications: SiteNotifications[] = [];
 
   ngOnInit(): void {
   }

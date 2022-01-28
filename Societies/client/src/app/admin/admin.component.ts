@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { SharedService } from '../_services/shared.service';
+import { Showingdashboard } from '../_enums/showingdashboard';
+import { Application } from '../_models/application';
+import { DashService } from '../_services/dash.service';
 
 @Component({
   selector: 'app-admin',
@@ -8,11 +10,13 @@ import { SharedService } from '../_services/shared.service';
 })
 export class AdminComponent implements OnInit {
 
+  show: number;
+  showingdashboard: Showingdashboard;
 
-  constructor(private shared: SharedService) { }
+  constructor(private dashService: DashService) { }
 
   ngOnInit(): void {
-    this.populateDashboard();
+    //this.populateDashboard();
   }
 
   model: any = {};
@@ -21,127 +25,28 @@ export class AdminComponent implements OnInit {
   model3: any = {};
   model4: any = {};
 
-  showDash = true;
-  showTotal = false;
-  showDetailedTotal = false;
-  showRevenue = false;
-  showPayment = false;
-  showInvoice = false;
-  showingReports: Boolean;
-  path: any = " ";
-
-  totalSales: any[] = [];
-  detailedtotalSales: any[] = [];
-
-  revenue: string;
+  totalapplications: any[] = [];
+  inprocessapplications: any[] = [];
+  rejectedapplications: Application[];
   payments: any[] = [];
-  salesVolume: any = {};
-  salesRevenue: any = {};
-  invoices: any = {};
-  allSalesRevenue: any = {};
 
+  //methods to be called where
+  showTotalApplications = () => this.show=Showingdashboard.Dash;
+  showInprocessApplications = () => this.show =Showingdashboard.inprocess;
+  showRejectedApplications = () => this.show =Showingdashboard.rejections;
+  showPaymentReport = () => this.show =Showingdashboard.Payment;
+  showDashboard = () => this.show =Showingdashboard.Dash;
 
-
-  showTotalReport() {
-    this.showingReports = true;
-    this.showDash = false;
-    this.showTotal = true;
-    this.showDetailedTotal = false;
-    this.showRevenue = false;
-    this.showPayment = false;
-    this.showInvoice = false;
-  }
-  showDetailedTotalReport() {
-    this.showingReports = true;
-    this.showDash = false;
-    this.showTotal = false;
-    this.showDetailedTotal = true;
-    this.showRevenue = false;
-    this.showPayment = false;
-    this.showInvoice = false;
-  }
-  showRevenueReport() {
-    this.showingReports = true;
-    this.showDash = false;
-    this.showTotal = false;
-    this.showDetailedTotal = false;
-    this.showRevenue = true;
-    this.showPayment = false;
-    this.showInvoice = false;
-  }
-  showPaymentReport() {
-    this.showingReports = true;
-    this.showDash = false;
-    this.showTotal = false;
-    this.showDetailedTotal = false;
-    this.showRevenue = false;
-    this.showPayment = true;
-    this.showInvoice = false;
-  }
-  showInvoiceReport() {
-    this.showingReports = true;
-    this.showDash = false;
-    this.showTotal = false;
-    this.showDetailedTotal = false;
-    this.showRevenue = false;
-    this.showPayment = false;
-    this.showInvoice = true;
-  }
-  showDashboard() {
-    this.showingReports = false;
-    this.showDash = true;
-    this.showTotal = false;
-    this.showDetailedTotal = false;
-    this.showRevenue = false;
-    this.showPayment = false;
-    this.showInvoice = false;
-  }
-
-  reportDto(entity: any): any {
-    entity.branchId = this.referenceService.currentBranch();
-
-    return entity;
-  }
-
-  populateDashboard() {
-    this.dashService.salesVolume(this.referenceService.currentBranch()).subscribe(
-      response => {
-        console.log(response);
-        this.salesVolume = response;
-      },
-      error => {
-        console.log(error);
-      }
-    )
-
-    this.dashService.salesRevenue(this.referenceService.currentBranch()).subscribe(
-      response => {
-        console.log(response);
-        this.salesRevenue = response;
-      },
-      error => {
-        console.log(error);
-      }
-    )
-    this.dashService.allSalesRevenue().subscribe(
-      response => {
-        console.log(response);
-        this.allSalesRevenue = response;
-      },
-      error => {
-        console.log(error);
-      }
-    )
-  }
 
   generateReport(type: string) {
     if (type == 'total') {
       this.model.searched = true;
 
-      this.dashService.totalSales(this.reportDto(this.model)).subscribe(
+      this.dashService.getapplications(this.model, "report/totalapplication").subscribe(
         response => {
-          this.totalSales = response;
+          this.totalapplications = response;
 
+          //consider putting a ternary operator
           if (response.length == 0) {
             this.model.empty = true;
           } else {
@@ -150,15 +55,16 @@ export class AdminComponent implements OnInit {
         }
       )
     }
-    this.busyService.idle();
+    //this.busyService.idle(); Haven't made busy service yet
 
-    if (type == 'detailedtotal') {
+    if (type == 'inprocess') {
       this.model1.searched = true;
 
-      this.dashService.totalDetailedSales(this.reportDto(this.model1)).subscribe(
+      this.dashService.getapplications(this.model1, "report/inprocessapplication").subscribe(
         response => {
-          this.detailedtotalSales = response;
+          this.inprocessapplications = response;
 
+          //consider putting a ternary operator
           if (response.length == 0) {
             this.model1.empty = true;
           } else {
@@ -169,104 +75,23 @@ export class AdminComponent implements OnInit {
       )
     }
 
-    if (type == 'revenue') {
-      this.dashService.revenue(this.reportDto(this.model2)).subscribe(
+    if (type == 'rejections') {
+      this.dashService.getapplications(this.model2,"report/rejectedapplication").subscribe(
         response => {
-          this.revenue = response.orderRevenue;
+          this.rejectedapplications = response;
         }
       )
     }
 
     if (type == 'payment') {
-      this.dashService.payment(this.reportDto(this.model3)).subscribe(
+      this.dashService.payment(this.model3).subscribe(
         response => {
           this.payments = response;
         }
       )
     }
 
-    if (type == 'invoice') {
-      this.model4.searched = true;
-      this.dashService.invoice(this.reportDto(this.model4)).subscribe(
-        response => {
-          this.invoices = response;
 
-          if (response.length == 0) {
-            this.model4.empty = true;
-          } else {
-            this.model4.empty = false;
-          }
-        }
-      )
-    }
-
-  }
-  getTotal(item: any, origin: string) {
-    if (origin == "total") {
-      let values = item;
-      let total: number = 0;
-      values.forEach(element => {
-        total = total + parseFloat(element.orderRevenue.split(',').join(''));
-      });
-
-      let tot = parseFloat(total.toFixed(2));
-      return tot.toLocaleString('en-US', { minimumFractionDigits: 2 });
-    }
-    if (origin == "dtotal") {
-      let values = item;
-      let total: number = 0;
-      let quantity: number = 0;
-      let weight: number = 0;
-
-      values.forEach(element => {
-        total = total + parseFloat(element.orderRevenue.split(',').join(''));
-      });
-
-      values.forEach(element => {
-        quantity = quantity + element.quantity;
-      });
-
-      values.forEach(element => {
-        weight = weight + parseFloat(element.weight.split(',').join(''));
-      });
-
-      let tot = parseFloat(total.toFixed(2));
-
-      let result: any[] = [];
-
-      result.push(quantity.toString());
-
-      result.push(weight.toLocaleString('en-US', { minimumFractionDigits: 2 }));
-
-      result.push(tot.toLocaleString('en-US', { minimumFractionDigits: 2 }));
-
-      return result;
-    }
-    if (origin == "payment") {
-      let values = item;
-      let total: number = 0;
-
-      values.forEach(element => {
-        total = total + parseFloat(element.amount.split(',').join(''));
-      });
-
-      let tot = parseFloat(total.toFixed(2));
-
-      return tot.toLocaleString('en-US', { minimumFractionDigits: 2 });
-    }
-
-    if (origin == "invoice") {
-      let values = item;
-      let total: number = 0;
-
-      values.forEach(element => {
-        total = total + parseFloat(element.price.split(',').join(''));
-      });
-
-      let tot = parseFloat(total.toFixed(2));
-
-      return tot.toLocaleString('en-US', { minimumFractionDigits: 2 });
-    }
   }
 
   expandToggle(item: any) {
@@ -274,7 +99,7 @@ export class AdminComponent implements OnInit {
   }
 
   exportToExcel() {
-    this.dashService.exportToExcel(this.referenceService.currentBranch());
+    this.dashService.exportToExcel();
   }
 
 }
