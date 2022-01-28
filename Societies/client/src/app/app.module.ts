@@ -26,7 +26,7 @@ import { AmmendmentsComponent } from './ammendments/ammendments.component';
     SignupComponent,
     TextInputComponent,
     DateInputComponent,
-    LoginComponent
+    LoginComponent,
     NavComponent,
     ComplianceComponent,
     AmmendmentsComponent

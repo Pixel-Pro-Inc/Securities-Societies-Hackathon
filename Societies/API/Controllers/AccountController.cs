@@ -243,6 +243,7 @@ namespace API.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
+            //Checks if the account exists
             if (await GetUser(loginDto.AccountId) == null)
                 return BadRequest("This account does not exist");
 

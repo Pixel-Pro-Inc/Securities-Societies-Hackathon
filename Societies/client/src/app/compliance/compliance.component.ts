@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MasterService } from '../_services/master.service';
+import { SharedService } from '../_services/shared.service';
 
 @Component({
   selector: 'app-compliance',
@@ -7,9 +7,9 @@ import { MasterService } from '../_services/master.service';
   styleUrls: ['./compliance.component.css']
 })
 export class ComplianceComponent implements OnInit {
-  constructor(private master: MasterService) { }
+  constructor(private shared: SharedService) { }
 
   ngOnInit(): void {
   }
-  siteTelephone = this.master.siteTelephone;
+  siteTelephone = this.shared.siteTelephone;
 }

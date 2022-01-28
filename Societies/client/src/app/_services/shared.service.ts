@@ -23,4 +23,7 @@ export class SharedService {
   }
 
   public baseUrl = 'https://localhost:5001/api/';
+
+  public hasApplication: boolean;
+  public siteTelephone: string = "3214567";
 }
