@@ -2,9 +2,14 @@
   "ExpandedNodes": [
     "",
     "\\Societies",
+    "\\Societies\\client",
     "\\Societies\\client\\src",
-    "\\Societies\\client\\src\\app"
+    "\\Societies\\client\\src\\app",
+    "\\Societies\\client\\src\\app\\ammendments",
+    "\\Societies\\client\\src\\app\\compliance",
+    "\\Societies\\client\\src\\app\\register",
+    "\\Societies\\client\\src\\app\\_services"
   ],
-  "SelectedNode": "\\Societies",
+  "SelectedNode": "\\Societies\\client\\src\\app\\app.component.ts",
   "PreviewInSolutionExplorer": false
 }

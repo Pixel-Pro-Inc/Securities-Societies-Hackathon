@@ -1,3 +1,15 @@
+<header>
+  <app-nav></app-nav>
+</header>
 <body>
-    <router-outlet></router-outlet>
+  <router-outlet></router-outlet>
+  <button (click)="topFunction()" id="myBtn" title="Go to top">Back to top</button>
 </body>
+<footer class="footer bg-dark " style="height: 40px;">
+  <div class="container">
+    <div class="d-flex gap-2 w-3 justify-content-between">
+      <a class="text-light mt-1" routerLink="/home">BlueUnion</a>
+      <a class="text-light mt-1" >Powered by Carl Moth</a>
+    </div>
+  </div>
+</footer>

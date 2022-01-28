@@ -28,6 +28,7 @@ chrome-profiler-events*.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+.vs/slnx.sqlite 
 .history/*
 
 # misc
@@ -43,3 +44,9 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+config
+v16
+
+.suo
+slnx.sqlite
+appsettings.json

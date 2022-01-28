@@ -4,14 +4,11 @@ import { MasterService } from './master.service';
 @Injectable({
   providedIn: 'root'
 })
-export class CallService extends MasterService{
+export class LoginService extends MasterService {
 
-  constructor()
-  {
+  constructor() {
     super();
   }
 
-  call(num: string){
-    window.open('tel:' + num);
-  }
+  logout = () => localStorage.removeItem('user');
 }
