@@ -5,11 +5,8 @@
     "\\Societies\\client",
     "\\Societies\\client\\src",
     "\\Societies\\client\\src\\app",
-    "\\Societies\\client\\src\\app\\ammendments",
-    "\\Societies\\client\\src\\app\\compliance",
-    "\\Societies\\client\\src\\app\\register",
-    "\\Societies\\client\\src\\app\\_services"
+    "\\Societies\\client\\src\\app\\nav"
   ],
-  "SelectedNode": "\\Societies\\client\\src\\app\\app.component.ts",
+  "SelectedNode": "\\Societies\\client\\src\\app\\nav\\nav.component.ts",
   "PreviewInSolutionExplorer": false
 }
