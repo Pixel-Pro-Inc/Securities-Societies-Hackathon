@@ -17,6 +17,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { LoginComponent } from './login/login.component';
 import { ComplianceComponent } from './compliance/compliance.component';
 import { AmmendmentsComponent } from './ammendments/ammendments.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AmmendmentsComponent } from './ammendments/ammendments.component';
     LoginComponent,
     NavComponent,
     ComplianceComponent,
-    AmmendmentsComponent
+    AmmendmentsComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
