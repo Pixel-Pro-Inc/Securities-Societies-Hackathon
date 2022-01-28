@@ -9,7 +9,7 @@ import { Messages } from '../_models/messages';
 })
 export class NavComponent implements OnInit {
 
-  messages: Messages[];
+  messages: Messages[] = [];
 
   constructor(private loginService: LoginService) { }
 
