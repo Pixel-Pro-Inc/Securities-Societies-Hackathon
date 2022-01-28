@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../_services/loginservice.service';
+import { Messages } from '../_models/messages';
 
 @Component({
   selector: 'app-nav',
@@ -7,6 +8,8 @@ import { LoginService } from '../_services/loginservice.service';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
+
+  messages: Messages[];
 
   constructor(private loginService: LoginService) { }
 
@@ -29,7 +32,7 @@ export class NavComponent implements OnInit {
     return user;
   }
    * */
- 
+
 
   logout() {
     this.loginService.logout();
