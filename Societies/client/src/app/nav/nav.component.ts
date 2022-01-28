@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../_services/loginservice.service';
+import { AccountService } from '../_services/account.service';
+import { SharedService } from '../_services/shared.service';
 
 @Component({
   selector: 'app-nav',
@@ -8,30 +9,19 @@ import { LoginService } from '../_services/loginservice.service';
 })
 export class NavComponent implements OnInit {
 
-  constructor(private loginService: LoginService) { }
+  constructor(private accountService: AccountService, private shared: SharedService) { }
 
   ngOnInit(): void {
   }
 
   loggedIn(): boolean {
-    if (localStorage.getItem('user') != null) {
+    if (this.shared.getUser() != null) {
       return true;
     }
     return false;
-  }
-  /**
-   * getUser(): User {
-    let userString = '';
-    userString = (String)(localStorage.getItem('user'));
-
-    let user: User = JSON.parse(userString);
-
-    return user;
-  }
-   * */
- 
+  } 
 
   logout() {
-    this.loginService.logout();
+    this.accountService.logout();
   }
 }
