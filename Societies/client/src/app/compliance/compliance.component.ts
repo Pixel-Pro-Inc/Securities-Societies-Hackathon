@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MasterService } from '../_services/master.service';
 
 @Component({
   selector: 'app-compliance',
@@ -6,10 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./compliance.component.css']
 })
 export class ComplianceComponent implements OnInit {
-  siteTelephone: string;
-  constructor() { }
+  constructor(private master: MasterService) { }
 
   ngOnInit(): void {
   }
-
+  siteTelephone = this.master.siteTelephone;
 }

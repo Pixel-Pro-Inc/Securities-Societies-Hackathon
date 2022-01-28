@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './nav/nav.component';
 import { RegisterComponent } from './register/register.component';
 import { ComplianceComponent } from './compliance/compliance.component';
+import { AmmendmentsComponent } from './ammendments/ammendments.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ComplianceComponent } from './compliance/compliance.component';
     HomeComponent,
     NavComponent,
     RegisterComponent,
-    ComplianceComponent
+    ComplianceComponent,
+    AmmendmentsComponent
   ],
   imports: [
     BrowserModule,
