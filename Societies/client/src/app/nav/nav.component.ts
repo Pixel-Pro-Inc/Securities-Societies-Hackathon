@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Messages } from '../_models/messages';
 import { AccountService } from '../_services/account.service';
 import { SharedService } from '../_services/shared.service';
 
