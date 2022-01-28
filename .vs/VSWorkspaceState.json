@@ -6,9 +6,9 @@
     "\\Societies\\client\\src",
     "\\Societies\\client\\src\\app",
     "\\Societies\\client\\src\\app\\compliance",
-    "\\Societies\\client\\src\\app\\register",
-    "\\Societies\\client\\src\\app\\_services"
+    "\\Societies\\client\\src\\app\\nav",
+    "\\Societies\\client\\src\\app\\register"
   ],
-  "SelectedNode": "\\Societies\\client\\src\\app\\compliance\\compliance.component.ts",
+  "SelectedNode": "\\Societies\\client\\src\\app\\app-routing.module.ts",
   "PreviewInSolutionExplorer": false
 }
