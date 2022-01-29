@@ -16,4 +16,8 @@ export class AppComponent {
   document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
 
+getMessage(){
+  return localStorage.getItem('loadingMessage') + '...';
+}
+
 }
