@@ -8,8 +8,7 @@ namespace API.Helpers
 {
     public class PagedList<T>: List<T>
     {
-        //Another nonsense class for database we might not need
-        //But it is beautiful to look at and learn from
+        //This will be used to help filter with pagination
 
         //The purpose of this constructor is to generate a pageList that will be returned in the CreaateAsync method. So that what it does return is the computed
         //result and not just plain values

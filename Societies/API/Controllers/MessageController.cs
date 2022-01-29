@@ -1,5 +1,6 @@
 ﻿using API.DTO;
 using API.Entities;
+using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -14,22 +15,22 @@ namespace API.Controllers
     [Authorize]
     public class MessageController:BaseApiController
     {
-        private readonly IMessageRepository _messageRepository;
+        //private readonly IMessageRepository _messageRepository;
         private readonly IMapper _mapper;
 
-        public MessageController( IMessageRepository messageRepository, IMapper mapper)
+        public MessageController( /*IMessageRepository messageRepository,*/ IMapper mapper)
         {
-            _messageRepository = messageRepository;
+           // _messageRepository = messageRepository;
             _mapper = mapper;
         }
-
+        User SenderUser;
         [HttpPost]
-        public async Task<ActionResult<MessageDto>> CreateMessage(CreateMessageDto createMessageDto, User user/*We need this from wherever its being called*/)
+        public async Task<ActionResult<MessageDto>> CreateMessage(CreateMessageDto createMessageDto)
         {
 
-            if (user.username == createMessageDto.RecipientUsername.ToLower()) return BadRequest("You cannot send messages to yourself");
+            if (SenderUser.username == createMessageDto.RecipientUsername.ToLower()) return BadRequest("You cannot send messages to yourself");
 
-            var sender = await GetUser(user.Email);//gets the sender
+            var sender = await GetUser(SenderUser.Email);//gets the sender. We need to do better. I'll pull from yewo and see if he already has something similar
             var recipient = await GetUser(createMessageDto.RecipientEmail);
             if (recipient == null) return NotFound();
 
@@ -42,18 +43,26 @@ namespace API.Controllers
                 content = createMessageDto.Content
             };
 
-            _firebaseDataContext.StoreData("Messages/" + user.Id+ message.Id, message);
+            _firebaseDataContext.StoreData("Messages/" + SenderUser.Id+ message.Id, message);
             //return firebase style expected
 
             //The lines below may give problems cause there is no database context in MessageRepository.
-            //But I'm leaving them opening here in case we switch to sql for some God forsaken reason. In any case they don't hurt anyone
+            /*
             _messageRepository.AddMessage(message);
             if (await _messageRepository.SaveAllAsync()) return Ok(_mapper.Map<MessageDto>(message));
+             */
+            return Ok(_mapper.Map<MessageDto>(message));
 
-            //if not made @46 put the return method with or without the mapper with MessageDto
-
-            return BadRequest("Failed to send Message");
         }
 
+        /*
+          [HttpGet]
+        public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessagesForUser([FromQuery] MessageParams messageParams)
+        {
+            messageParams.Username = User.GetUser// gets the sender. We need to do better.I'll pull from yewo and see if he already has something similar
+        }
+
+         */
+       
     }
 }
