@@ -21,8 +21,8 @@
                     <label>Enter your date of birth</label>
                     <app-date-input [formControl]='signupForm.controls["dateofbirth"]' [label]='"date of birth"'></app-date-input>                    
                     <div class="text-center">
-                        <button class="btn btn-primary btn-circle" (click)="!form1Complete() && toggleShowDone()" [disabled]='form1Complete()'><i class="fa fa-chevron-right" style="padding-left: 2px;"></i></button>
-                        <button class="btn btn-primary text-light" routerLink="/login">Alreay have an account? Sign in</button>
+                        <p><button class="btn btn-primary btn-circle mr-1" (click)="!form1Complete() && toggleShowDone()" [disabled]='form1Complete()'><i class="fa fa-chevron-right" style="padding-left: 2px;"></i></button></p>
+                        <button class="btn btn-transparent text-dark" routerLink="/login">Alreay have an account? Sign in</button>
                     </div>                    
                 </div>
                 
