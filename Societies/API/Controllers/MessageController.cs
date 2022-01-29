@@ -1,8 +1,10 @@
 ﻿using API.DTO;
 using API.Entities;
+using API.Extentions;
 using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -23,14 +25,13 @@ namespace API.Controllers
            // _messageRepository = messageRepository;
             _mapper = mapper;
         }
-        User SenderUser;
+
         [HttpPost]
         public async Task<ActionResult<MessageDto>> CreateMessage(CreateMessageDto createMessageDto)
         {
+            User sender = await GetUser(createMessageDto.SenderEmail);
+            if (createMessageDto.SenderEmail == createMessageDto.RecipientUsername.ToLower()) return BadRequest("You cannot send messages to yourself");
 
-            if (SenderUser.username == createMessageDto.RecipientUsername.ToLower()) return BadRequest("You cannot send messages to yourself");
-
-            var sender = await GetUser(SenderUser.Email);//gets the sender. We need to do better. I'll pull from yewo and see if he already has something similar
             var recipient = await GetUser(createMessageDto.RecipientEmail);
             if (recipient == null) return NotFound();
 
@@ -43,7 +44,7 @@ namespace API.Controllers
                 content = createMessageDto.Content
             };
 
-            _firebaseDataContext.StoreData("Messages/" + SenderUser.Id+ message.Id, message);
+            _firebaseDataContext.StoreData("Messages/" + sender.Id+ message.Id, message);
             //return firebase style expected
 
             //The lines below may give problems cause there is no database context in MessageRepository.
@@ -55,14 +56,30 @@ namespace API.Controllers
 
         }
 
-        /*
-          [HttpGet]
+        
+        [HttpGet]//apparently we don't add anything here cause we will be using query string
         public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessagesForUser([FromQuery] MessageParams messageParams)
         {
-            messageParams.Username = User.GetUser// gets the sender. We need to do better.I'll pull from yewo and see if he already has something similar
+            var messages = await GetMessages(messageParams); //firebase call
+            Response.AddPaginationHeader(messages.CurrentPage, messages.Pagesize, messages.TotalCount, messages.TotalPages);
+            return messages;
         }
 
-         */
-       
+        async Task<PagedList<MessageDto>> GetMessages(MessageParams messageParams)
+        {
+            ///Use this as a template for the firebase equivalent in MessageController
+            var query = await _firebaseDataContext.GetData<Message>("Messages");
+            IQueryable<Message> checlist= query.AsQueryable<Message>(); //needs to be IQueryable 
+            checlist = messageParams.Container switch
+            {
+                "Inbox" => checlist.Where(u => u.Recipient.username == messageParams.Username),
+                "Outbox" => checlist.Where(u => u.Sender.username == messageParams.Username),
+                _ => checlist.Where(u => u.Recipient.username == messageParams.Username && u.DateRead == null)
+            };
+
+            var messages = checlist.ProjectTo<MessageDto>(_mapper.ConfigurationProvider);
+
+            return await PagedList<MessageDto>.CreateAsync(messages, messageParams.PageNumber, messageParams.pageSize);
+        }
     }
 }
