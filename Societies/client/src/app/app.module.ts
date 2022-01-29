@@ -21,6 +21,7 @@ import { NameauthComponent } from './nameauth/nameauth.component';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { MyapplicationsComponent } from './myapplications/myapplications.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { MyapplicationsComponent } from './myapplications/myapplications.compone
     ComplianceComponent,
     AmmendmentsComponent,
     NameauthComponent,
-    MyapplicationsComponent
+    MyapplicationsComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

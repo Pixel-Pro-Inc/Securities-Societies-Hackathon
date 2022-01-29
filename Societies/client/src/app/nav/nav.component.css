@@ -24,3 +24,10 @@ navbar-brand{
 .fa-stack {
   font-size: 2em;
 }
+#message {
+  display: grid;
+  grid-template-columns: 25% 50% 25%;
+}
+#dropdown04:hover #Notifications {
+  display: block;
+}
