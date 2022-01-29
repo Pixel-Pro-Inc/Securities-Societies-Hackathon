@@ -45,7 +45,7 @@
     </div>
 
     <p>At this stage you will apply for a name for your society. We will check if your desired name is available and valid and reserve it for you until you either finish stage 2 or 90 days ellapse.</p>
-    <p>The list of requirements for this stage are provided below when you are ready to proceed click <button class="btn btn-success text-light ml-3">Get Started</button></p>
+    <p>The list of requirements for this stage are provided below when you are ready to proceed click <button class="btn btn-success text-light ml-3" routerLink="{{isLoggedOn()? '/nameauthorisation' : '/login'}}">Get Started</button></p>
 
     <div class="jumbotron">
         <h4>Requirements for all organizations</h4>
@@ -71,7 +71,7 @@
         </ul>  
     </div>
     
-    <button class="btn btn-success text-light" href="loggedIn()?'/myapplications'||'/login'">Get Started</button>
+    <button class="btn btn-success text-light" routerLink="{{isLoggedOn()? '/nameauthorisation' : '/login'}}">Get Started</button>
 
     <h3 class="font-weight-bold mt-3">2. Stage Two</h3>
 

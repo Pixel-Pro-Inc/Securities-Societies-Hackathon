@@ -1,7 +1,4 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
-import { of } from 'rxjs';
 import { SharedService } from './shared.service';
 
 @Injectable({
@@ -13,38 +10,48 @@ export class AccountService{
   }
 
   omangFill(img: any){
+    this.shared.busyService.busy('Scanning');
     var post = this.shared.http.post(this.shared.baseUrl + 'account/omangfill', img);
 
     post.subscribe( response => {
       console.log(response);
     },
     error => {
+      this.shared.busyService.idle();
       this.shared.toastr.error(error.error);
       return;
     });
     
+    this.shared.busyService.idle();
     return post;
   }
 
   signup(model: any){
+    this.shared.busyService.busy('Creating your account...');
     this.shared.http.post(this.shared.baseUrl + 'account/signup', model).subscribe(
       response =>{
-        this.shared.setUser(model);//Logs a user in
+        console.log(response)
+        this.shared.setUser(response);//Logs a user in
+        this.shared.busyService.idle();
         this.shared.router.navigateByUrl('/');
       },
       error => {
+        this.shared.busyService.idle();
         this.shared.toastr.error(error.error);
       }
     );
   }
 
   login(model: any){
+    this.shared.busyService.busy('Signing you in');
     this.shared.http.post(this.shared.baseUrl + 'account/login', model).subscribe(
       response =>{
-        this.shared.setUser(model);//Logs a user in
+        this.shared.setUser(response);//Logs a user in
         this.shared.router.navigateByUrl('/');
+        this.shared.busyService.idle();
       },
       error => {
+        this.shared.busyService.idle();
         this.shared.toastr.error(error.error);
       }
     );
