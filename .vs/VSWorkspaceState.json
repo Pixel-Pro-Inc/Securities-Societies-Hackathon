@@ -4,11 +4,10 @@
     "\\Societies",
     "\\Societies\\API",
     "\\Societies\\API\\Entities",
-    "\\Societies\\API\\Helpers",
     "\\Societies\\client",
     "\\Societies\\client\\src",
     "\\Societies\\client\\src\\app"
   ],
-  "SelectedNode": "\\Societies\\API\\Helpers\\AutoMapperProfiles.cs",
+  "SelectedNode": "\\Societies\\client\\src\\app\\app.module.ts",
   "PreviewInSolutionExplorer": false
 }
