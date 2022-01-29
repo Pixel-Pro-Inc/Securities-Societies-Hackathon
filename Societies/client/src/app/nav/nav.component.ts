@@ -14,12 +14,14 @@ export class NavComponent implements OnInit {
   constructor(private accountService: AccountService, private shared: SharedService) { }
   messages: Messages[] = [];
   notifications: SiteNotifications[] = [];
+  User: any;
 
   ngOnInit(): void {
   }
 
   loggedIn(): boolean {
     if (this.shared.getUser() != null) {
+      this.User = this.shared.getUser();
       return true;
     }
     return false;

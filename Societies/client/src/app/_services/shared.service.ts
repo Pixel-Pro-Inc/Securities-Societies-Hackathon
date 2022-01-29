@@ -10,6 +10,7 @@ export class SharedService {
 
   constructor(public http: HttpClient, public toastr: ToastrService, public router: Router) { }
 
+
   public setUser(model: any){
     localStorage.setItem('user', model);
   }

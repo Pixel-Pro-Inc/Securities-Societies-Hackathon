@@ -2,11 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\Societies",
+    "\\Societies\\API",
+    "\\Societies\\API\\Entities",
     "\\Societies\\client",
     "\\Societies\\client\\src",
-    "\\Societies\\client\\src\\app",
-    "\\Societies\\client\\src\\app\\nav"
+    "\\Societies\\client\\src\\app"
   ],
-  "SelectedNode": "\\Societies\\client\\src\\app\\nav\\nav.component.ts",
+  "SelectedNode": "\\Societies\\API\\Interfaces",
   "PreviewInSolutionExplorer": false
 }
