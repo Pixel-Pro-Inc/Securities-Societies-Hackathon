@@ -29,6 +29,7 @@ namespace API.Controllers
         }
 
         //Removed this from AccountController so it can be shared with all controllers but noone else, hence the protected modifier
+        //Also Why did you decided to use only email and PhoneNumbers here
         protected async Task<User> GetUser(string accountID)
         {
             List<User> users = await _firebaseDataContext.GetData<User>("Account");

@@ -24,13 +24,13 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<MessageDto>> CreateMessage(CreateMessageDto createMessageDto, string user)
+        public async Task<ActionResult<MessageDto>> CreateMessage(CreateMessageDto createMessageDto, User user/*We need this from wherever its being called*/)
         {
-            var username = user;
-            if (username == createMessageDto.RecipientUsername.ToLower()) return BadRequest("You cannot send messages to yourself");
 
-            var sender = await GetUser(user);
-            var recipient = await GetUser(createMessageDto.RecipientUsername);
+            if (user.username == createMessageDto.RecipientUsername.ToLower()) return BadRequest("You cannot send messages to yourself");
+
+            var sender = await GetUser(user.Email);//gets the sender
+            var recipient = await GetUser(createMessageDto.RecipientEmail);
             if (recipient == null) return NotFound();
 
             var message = new Message
@@ -41,9 +41,16 @@ namespace API.Controllers
                 RecipientUsername = recipient.username,
                 content = createMessageDto.Content
             };
-            //The two lines below may give problems cause there is no database context in MessageRepository. Consider replacing somehow with firebase there.
+
+            _firebaseDataContext.StoreData("Messages/" + user.Id+ message.Id, message);
+            //return firebase style expected
+
+            //The lines below may give problems cause there is no database context in MessageRepository.
+            //But I'm leaving them opening here in case we switch to sql for some God forsaken reason. In any case they don't hurt anyone
             _messageRepository.AddMessage(message);
             if (await _messageRepository.SaveAllAsync()) return Ok(_mapper.Map<MessageDto>(message));
+
+            //if not made @46 put the return method with or without the mapper with MessageDto
 
             return BadRequest("Failed to send Message");
         }
