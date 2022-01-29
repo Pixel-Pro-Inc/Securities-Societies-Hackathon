@@ -5,10 +5,9 @@
     "\\Societies\\API",
     "\\Societies\\API\\Entities",
     "\\Societies\\client",
+    "\\Societies\\client\\node_modules\\@angular",
     "\\Societies\\client\\src",
-    "\\Societies\\client\\src\\app",
-    "\\Societies\\client\\src\\app\\_forms",
-    "\\Societies\\client\\src\\app\\_forms\\date-input"
+    "\\Societies\\client\\src\\app"
   ],
   "SelectedNode": "\\Societies\\client\\src\\app\\app.module.ts",
   "PreviewInSolutionExplorer": false
