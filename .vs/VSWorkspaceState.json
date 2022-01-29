@@ -2,14 +2,13 @@
   "ExpandedNodes": [
     "",
     "\\Societies",
+    "\\Societies\\API",
+    "\\Societies\\API\\Entities",
+    "\\Societies\\API\\Helpers",
     "\\Societies\\client",
     "\\Societies\\client\\src",
-    "\\Societies\\client\\src\\app",
-    "\\Societies\\client\\src\\app\\admin",
-    "\\Societies\\client\\src\\app\\nav",
-    "\\Societies\\client\\src\\app\\_models",
-    "\\Societies\\client\\src\\app\\_services"
+    "\\Societies\\client\\src\\app"
   ],
-  "SelectedNode": "\\Societies\\client\\src\\app\\_models\\site-notifications.ts",
+  "SelectedNode": "\\Societies\\API\\Helpers\\AutoMapperProfiles.cs",
   "PreviewInSolutionExplorer": false
 }

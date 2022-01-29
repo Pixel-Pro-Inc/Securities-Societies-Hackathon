@@ -9,7 +9,10 @@ namespace API.Helpers
     public class PagedList<T>: List<T>
     {
         //Another nonsense class for database we might not need
+        //But it is beautiful to look at and learn from
 
+        //The purpose of this constructor is to generate a pageList that will be returned in the CreaateAsync method. So that what it does return is the computed
+        //result and not just plain values
         public PagedList(IEnumerable<T> items, int pagenumber, int count, int pagesize)
         {
             CurrentPage = pagenumber;
@@ -28,7 +31,8 @@ namespace API.Helpers
         {
             var count = await source.CountAsync();
             var items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
-            return new PagedList<T>(items, count, pageNumber, pageSize); 
+
+            return new PagedList<T>(items, pageNumber, count, pageSize); 
         }
     }
 }

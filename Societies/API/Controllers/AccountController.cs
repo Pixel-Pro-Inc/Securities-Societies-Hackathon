@@ -267,11 +267,8 @@ namespace API.Controllers
             };
         }
 
-        private async Task<User> GetUser(string accountID)
-        {
-            List<User> users = await _firebaseDataContext.GetData<User>("Account");
-            return users.Where(u => u.Email == accountID || u.PhoneNumber.ToString() == accountID).ToList().Count != 0? users.Where(u => u.Email == accountID || u.PhoneNumber.ToString() == accountID).ToList()[0] : null;
-        }
+       //I removed GetUser from here and put it in BaseApiController cause I needed it in MessageController
+
         #endregion
     }
 }

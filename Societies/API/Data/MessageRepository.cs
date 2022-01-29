@@ -11,9 +11,9 @@ namespace API.Data
 {
     public class MessageRepository : IMessageRepository
     {
-        // Consider Completely changing all of this cause from here we need to go to extentions (which doesn't exist) and go to
-        /** AddApplicationsServices() and add this line services.AddScoped<IMessageRepository, MessageRepository>();
-         * 
+        /* Consider Completely changing all of this cause I seems this is only useful for database items
+         * Or at least make any of these silent/obselete
+
          */
         private readonly DataContext _context;
 
