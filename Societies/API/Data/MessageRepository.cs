@@ -32,6 +32,7 @@ namespace API.Data
 
         public async Task<Message> GetMessage(int id) => await _context.Messages.FindAsync(id);
 
+        [Obsolete] //Don't use this method. It neeeeeds datacontext
         public async Task<PagedList<MessageDto>> GetMessagesForUser(MessageParams messageParams)
         {
             ///Use this as a template for the firebase equivalent in MessageController
