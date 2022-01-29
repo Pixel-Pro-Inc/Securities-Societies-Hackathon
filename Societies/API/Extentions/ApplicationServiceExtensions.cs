@@ -16,7 +16,8 @@ namespace API.Extentions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
-            services.AddScoped<IMessageRepository, MessageRepository>();
+            //This doesn't work cause there is no database context to use. Consider replacing with firebase
+           // services.AddScoped<IMessageRepository, MessageRepository>();
 
             return services;
         }

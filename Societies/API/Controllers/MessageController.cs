@@ -41,9 +41,8 @@ namespace API.Controllers
                 RecipientUsername = recipient.username,
                 content = createMessageDto.Content
             };
-
+            //The two lines below may give problems cause there is no database context in MessageRepository. Consider replacing somehow with firebase there.
             _messageRepository.AddMessage(message);
-
             if (await _messageRepository.SaveAllAsync()) return Ok(_mapper.Map<MessageDto>(message));
 
             return BadRequest("Failed to send Message");
