@@ -12,7 +12,7 @@ import { SignupComponent } from './signup/signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextInputComponent } from './_forms/text-input/text-input.component';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
-import { DateInputComponent } from './_forms/date-input/date-input.component'
+import { DateInputComponent } from './_forms/date-input/date-input.component';
 import { ToastrModule } from 'ngx-toastr';
 import { LoginComponent } from './login/login.component';
 import { ComplianceComponent } from './compliance/compliance.component';
@@ -48,7 +48,7 @@ import { AdminComponent } from './admin/admin.component';
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     NgxSpinnerModule,
-    ToastrModule.forRoot({
+     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
     })
   ],
