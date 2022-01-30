@@ -45,14 +45,19 @@
                 </ul>
               </ng-container>
               <ng-container *ngIf="messages.length!=0">
-                <!-- This will blow up in the future so we need to add a limited condition to only show the most recent 4-5 -->
-                <ul class="dropdown-content" id="Notifications" aria-labelledby="dropdown04">
-                  <li id="message" *ngFor="let message of messages">
-                    <p>{{message.messageSent}}</p>
-                    <a class="nav-link text-dark" routerLinkActive="" routerLink="/messages">{{message.content}}</a>
-                    <a> {{message.bRead}}</a>
-                  </li>
-                </ul>
+                <!-- This will blow up in the future so we need to add a limited condition to only show the most recent 4-5
+
+    but for now we will just go to the message component
+
+  <ul class="dropdown-content" id="Notifications" aria-labelledby="dropdown04">
+    <li id="message" *ngFor="let message of messages">
+      <p>{{message.messageSent}}</p>
+      <a class="nav-link text-dark" routerLinkActive="" routerLink="/messages">{{message.content}}</a>
+      <a> {{message.bRead}}</a>
+    </li>
+  </ul>
+    -->
+    <a class="nav-link text-dark" routerLinkActive="" routerLink="/messages">Go checkout new messages</a>
               </ng-container>
             </div>
 
@@ -63,6 +68,7 @@
 
             <div>
               <ng-container *ngIf="notifications.length==0">
+                <!-- This will blow up in the future so we need to add a limited condition to only show the most recent 4-5 -->
                 <ul class="dropdown-content" aria-labelledby="dropdown05">
                   <li><a class="nav-link text-dark" routerLinkActive="" routerLink="/messages">No new notifications</a></li>
                 </ul>
