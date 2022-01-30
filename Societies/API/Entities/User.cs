@@ -18,5 +18,10 @@ namespace API.Entities
         public bool Admin { get; set; }
         public ICollection<Message> MessagesSent { get; set; }
         public ICollection<Message> MessagesRecieved { get; set; }
+
+        public string GetUserName()
+        {
+            return FirstName + ' ' + LastName;
+        }
     }
 }

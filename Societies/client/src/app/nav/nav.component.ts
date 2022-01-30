@@ -16,18 +16,29 @@ export class NavComponent implements OnInit {
   notifications: SiteNotifications[] = [];
   User: any;
 
+  admin = false;
+
   ngOnInit(): void {
   }
 
   loggedIn(): boolean {
     if (this.shared.getUser() != null) {
       this.User = this.shared.getUser();
+
+      if(this.User.admin){
+        this.admin = true;
+        return false;  
+      }
+
       return true;
+      
     }
     return false;
   } 
 
   logout() {
     this.accountService.logout();
+
+    window.location.reload();
   }
 }

@@ -17,6 +17,7 @@ import { NavigatedGuard } from './_guards/navigated.guard';
 const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [NavigatedGuard]},
   { path: 'register', component: RegisterComponent, canActivate: [NavigatedGuard]},
+  { path: 'Contact_us', component: RegisterComponent, canActivate: [NavigatedGuard]},
   { path: 'signup', component: SignupComponent, canActivate: [NavigatedGuard]},
   { path: 'login', component: LoginComponent, canActivate: [NavigatedGuard]},
   { path: 'compliance', component: ComplianceComponent, canActivate: [NavigatedGuard] },
