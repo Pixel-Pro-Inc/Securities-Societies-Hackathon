@@ -118,12 +118,15 @@ namespace API.Controllers
 
             return result;
         }
-
-        private async Task<User> GetUser(string accountID)
+        /*
+         The same code here is being defined in BaseAPIController, so noone will miss it here
+          private async Task<User> GetUser(string accountID)
         {
             List<User> users = await _firebaseDataContext.GetData<User>("Account");
             return users.Where(u => u.Email == accountID || u.PhoneNumber.ToString() == accountID).ToList().Count != 0 ? users.Where(u => u.Email == accountID || u.PhoneNumber.ToString() == accountID).ToList()[0] : null;
         }
+         */
+       
 
         async Task<int> GetId()
         {
