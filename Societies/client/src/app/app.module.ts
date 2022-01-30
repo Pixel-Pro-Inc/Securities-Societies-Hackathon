@@ -22,6 +22,7 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { MyapplicationsComponent } from './myapplications/myapplications.component';
 import { AdminComponent } from './admin/admin.component';
+import { MessagesComponent } from './messages/messages.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { AdminComponent } from './admin/admin.component';
     AmmendmentsComponent,
     NameauthComponent,
     MyapplicationsComponent,
-    AdminComponent
+    AdminComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,
