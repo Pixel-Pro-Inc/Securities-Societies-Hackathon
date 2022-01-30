@@ -22,10 +22,16 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { MyapplicationsComponent } from './myapplications/myapplications.component';
 import { AdminComponent } from './admin/admin.component';
+import { ApplicationTempComponent } from './_templates/application-temp/application-temp.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { PaypointComponent } from './paypoint/paypoint.component';
+import { FlutterwaveModule } from "flutterwave-angular-v3";
+import { CertComponent } from './cert/cert.component';
 import { MessagesComponent } from './messages/messages.component';
 import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+
 
 @NgModule({
   declarations: [
@@ -42,6 +48,10 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     NameauthComponent,
     MyapplicationsComponent,
     AdminComponent,
+    ApplicationTempComponent,
+    RegistrationComponent,
+    PaypointComponent,
+    CertComponent,
     MessagesComponent,
     MemberMessagesComponent,
     MemberDetailComponent
@@ -55,11 +65,12 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     NgxSpinnerModule,
-     ToastrModule.forRoot({
+    FlutterwaveModule,
+    TabsModule.forRoot(),
+    ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
-    }),
-    TabsModule.forRoot()
-  ],
+    })
+    ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
   ],

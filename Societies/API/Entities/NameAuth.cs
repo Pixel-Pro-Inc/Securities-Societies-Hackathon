@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,5 +21,7 @@ namespace API.Entities
         public List<string> Feedback { get; set; }
         public DateTime DateSubmitted { get; set; }
         public DateTime DateReviewed { get; set; }
+        public List<string> FileNames { get; set; }
+        public List<bool> AcceptedNames { get; set; }
     }
 }

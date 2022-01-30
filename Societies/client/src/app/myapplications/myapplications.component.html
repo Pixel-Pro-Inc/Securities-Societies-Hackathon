@@ -9,14 +9,14 @@
 
                 <ng-container *ngIf="applications.length > 0">
                     <ng-container *ngFor="let x of applications">
-                        <a *ngIf="x.corrections" class="list-group-item list-group-item-action mb-2" (click)="showMore(x)" aria-current="true">
+                        <div *ngIf="x.corrections" class="list-group-item list-group-item mb-2">
                             <div class="d-flex gap-3 py-3">
                               <img width="100" height="100"
                               src="https://firebasestorage.googleapis.com/v0/b/societies-and-security-hack.appspot.com/o/Societies%20Website%20Assets%2FRegister.png?alt=media&token=1a2d2dd7-9817-4ad1-b9d8-b03842f2ed12">
                               <div class="ml-3">
                                 <h4>{{x.type}}</h4>
                                 <span>{{x.stage}}</span>
-                                <small class="text-muted mt-1">Click to show more</small>
+                                <p><small (click)="showMore(x)" style="cursor: pointer;" class="text-muted mt-1">Click to show <span *ngIf="x.showExtra">less</span><span *ngIf="!x.showExtra">more</span></small></p>
                               </div>
         
                               <div class="ml-3 mt-1">
@@ -33,18 +33,18 @@
                                     <li>{{c}}</li>
                                 </ul>
 
-                                <button class="btn btn-primary" routerLink="{{'/nameauth/' + x.Id}}">Make Corrections</button>
-                                <button class="btn btn-success">Contact Us</button>
+                                <button class="btn btn-primary mr-3" routerLink="{{'/nameauthorisation/' + x.Id}}">Make Corrections</button>
+                                <button class="btn btn-success" routerLink="/contact-us">Contact Us</button>
                             </div>                   
-                        </a>
-                        <a *ngIf="x.rejected" class="list-group-item list-group-item-action mb-2" (click)="showMore(x)" aria-current="true">
+                          </div>
+                        <div *ngIf="x.rejected" class="list-group-item list-group-item mb-2">
                             <div class="d-flex gap-3 py-3">
                               <img width="100" height="100"
                               src="https://firebasestorage.googleapis.com/v0/b/societies-and-security-hack.appspot.com/o/Societies%20Website%20Assets%2FRegister.png?alt=media&token=1a2d2dd7-9817-4ad1-b9d8-b03842f2ed12">
                               <div class="ml-3">
                                 <h4>{{x.type}}</h4>
                                 <span>{{x.stage}}</span>
-                                <small class="text-muted mt-1">Click to show more</small>
+                                <p><small class="text-muted mt-1" (click)="showMore(x)" style="cursor: pointer;">Click to show more</small></p>
                               </div>
         
                               <div class="ml-3 mt-1">
@@ -61,18 +61,26 @@
                                     <li>{{c}}</li>
                                 </ul>
 
-                                <button class="btn btn-success">Contact Us</button>
+                                <button class="btn btn-success" routerLink="/contact-us">Contact Us</button>
                             </div>                   
-                        </a>
-                        <div *ngIf="x.accepted" class="list-group-item list-group-item-action mb-2" (click)="showMore(x)" aria-current="true">
+                          </div>
+                        <div *ngIf="x.accepted" class="list-group-item list-group-item mb-2">
                             <div class="d-flex gap-3 py-3">
                               <img width="100" height="100"
                               src="https://firebasestorage.googleapis.com/v0/b/societies-and-security-hack.appspot.com/o/Societies%20Website%20Assets%2FRegister.png?alt=media&token=1a2d2dd7-9817-4ad1-b9d8-b03842f2ed12">
                               <div class="ml-3">
                                 <h4>{{x.type}}</h4>
                                 <p><span>{{x.stage}}</span></p>
-                                <small>You have 90 days to complete the next stage before this application gets rejected</small>
-                                <button class="btn btn-success mt-2">Continue</button>
+                                <ng-container *ngIf="x.stage != 'Registration'">
+                                  <p><small>You have 90 days to complete the next stage before this application gets rejected</small></p>
+                                  <button routerLink="{{'/registration/' + x.Id}}" class="btn btn-success mt-2">Continue</button>
+                                </ng-container>
+
+                                <ng-container *ngIf="x.stage == 'Registration'">
+                                  <p><small class="text-warning font-weight-bold">You have successfully completed your registration you can download your certificate below</small></p>
+                                  <button (click)="openWindow(x.fileUrls[x.fileUrls.length - 1])" class="btn btn-primary mt-2"><i class="fa fa-download text-light mr-2"></i>Download</button>
+                                </ng-container>
+                                
                               </div>
         
                               <div class="ml-3 mt-1">
@@ -80,7 +88,7 @@
                               </div>                                  
                             </div>           
                         </div>
-                        <div *ngIf="x.review" class="list-group-item list-group-item-action mb-2" (click)="showMore(x)" aria-current="true">
+                        <div *ngIf="x.review" class="list-group-item list-group-item mb-2">
                             <div class="d-flex gap-3 py-3">
                               <img width="100" height="100"
                               src="https://firebasestorage.googleapis.com/v0/b/societies-and-security-hack.appspot.com/o/Societies%20Website%20Assets%2FRegister.png?alt=media&token=1a2d2dd7-9817-4ad1-b9d8-b03842f2ed12">
@@ -164,4 +172,5 @@
             </div>
         </div>
     </div>
+
 </div>

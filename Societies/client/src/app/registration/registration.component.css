@@ -73,24 +73,26 @@
 }
 
 @keyframes next{
-    0%{}
-    70%{}
-    100%{transform: translateX(150%);}
+    0%{width: 10%;}
+    25%{width: 20%;}
+    50%{width: 30%;}
+    75%{width: 40%;}
+    100%{width: 50%;}
 }
 
 @keyframes next2{
-    0%{width: 5%;}
-    25%{width: 10%;}
-    50%{width: 15%;}
-    75%{width: 20%;}
-    100%{width: 25%;}
+    0%{width: 60%;}
+    25%{width: 70%;}
+    50%{width: 80%;}
+    75%{width: 90%;}
+    100%{width: 100%;}
 }
 @keyframes next3{
-    0%{width: 30%;}
-    25%{width: 35%;}
-    50%{width: 40%;}
-    75%{width: 45%;}
-    100%{width: 50%;}
+    0%{width: 60%;}
+    25%{width: 70%;}
+    50%{width: 80%;}
+    75%{width: 90%;}
+    100%{width: 100%;}
 }
 @keyframes next4{
     0%{width: 55%;}

@@ -21,4 +21,8 @@ export class MyapplicationsComponent implements OnInit {
     model.showExtra = !model.showExtra;
   }
 
+  openWindow(url: string){
+    window.open(url);
+  }
+
 }

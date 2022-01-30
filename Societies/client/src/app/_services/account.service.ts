@@ -5,16 +5,16 @@ import { SharedService } from './shared.service';
   providedIn: 'root'
 })
 export class AccountService{
-  private currentUserSource = this.shared.getUser();
-  currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private shared: SharedService) {
-    console.log("Check here in account service for the variable I get as observable\n it is used in ")
   }
 
-  omangFill(img: any){
-    this.shared.busyService.busy('Scanning');
-    var post = this.shared.http.post(this.shared.baseUrl + 'account/omangfill', img);
+  omangFill(model: any){
+    this.shared.busyService.busy('Scanning Your Omang');
+
+    model.Id = 5;
+
+    var post = this.shared.http.post(this.shared.baseUrl + 'account/omangfill', model);
 
     post.subscribe( response => {
       console.log(response);
@@ -24,8 +24,6 @@ export class AccountService{
       this.shared.toastr.error(error.error);
       return;
     });
-    
-    this.shared.busyService.idle();
     return post;
   }
 
