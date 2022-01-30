@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Messages } from '../_models/messages';
+import { Message } from '../_models/message';
 import { AccountService } from '../_services/account.service';
 import { SharedService } from '../_services/shared.service';
 import { SiteNotifications } from '../_models/site-notifications';
@@ -12,14 +12,16 @@ import { SiteNotifications } from '../_models/site-notifications';
 export class NavComponent implements OnInit {
 
   constructor(private accountService: AccountService, private shared: SharedService) { }
-  messages: Messages[] = [];
+  messages: Message[] = [];
   notifications: SiteNotifications[] = [];
+  User: any;
 
   ngOnInit(): void {
   }
 
   loggedIn(): boolean {
     if (this.shared.getUser() != null) {
+      this.User = this.shared.getUser();
       return true;
     }
     return false;

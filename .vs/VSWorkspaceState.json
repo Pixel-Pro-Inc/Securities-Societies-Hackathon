@@ -3,10 +3,15 @@
     "",
     "\\Societies",
     "\\Societies\\client",
+    "\\Societies\\client\\node_modules\\@angular",
     "\\Societies\\client\\src",
     "\\Societies\\client\\src\\app",
-    "\\Societies\\client\\src\\app\\nav"
+    "\\Societies\\client\\src\\app\\members",
+    "\\Societies\\client\\src\\app\\members\\member-detail",
+    "\\Societies\\client\\src\\app\\members\\member-messages",
+    "\\Societies\\client\\src\\app\\_models",
+    "\\Societies\\client\\src\\app\\_services"
   ],
-  "SelectedNode": "\\Societies\\client\\src\\app\\nav\\nav.component.ts",
+  "SelectedNode": "\\Societies\\client\\src\\app\\app.module.ts",
   "PreviewInSolutionExplorer": false
 }

@@ -12,7 +12,7 @@ import { SignupComponent } from './signup/signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextInputComponent } from './_forms/text-input/text-input.component';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
-import { DateInputComponent } from './_forms/date-input/date-input.component'
+import { DateInputComponent } from './_forms/date-input/date-input.component';
 import { ToastrModule } from 'ngx-toastr';
 import { LoginComponent } from './login/login.component';
 import { ComplianceComponent } from './compliance/compliance.component';
@@ -27,6 +27,11 @@ import { RegistrationComponent } from './registration/registration.component';
 import { PaypointComponent } from './paypoint/paypoint.component';
 import { FlutterwaveModule } from "flutterwave-angular-v3";
 import { CertComponent } from './cert/cert.component';
+import { MessagesComponent } from './messages/messages.component';
+import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
+import { MemberDetailComponent } from './members/member-detail/member-detail.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+
 
 @NgModule({
   declarations: [
@@ -46,7 +51,10 @@ import { CertComponent } from './cert/cert.component';
     ApplicationTempComponent,
     RegistrationComponent,
     PaypointComponent,
-    CertComponent
+    CertComponent,
+    MessagesComponent,
+    MemberMessagesComponent,
+    MemberDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -58,6 +66,7 @@ import { CertComponent } from './cert/cert.component';
     BsDatepickerModule.forRoot(),
     NgxSpinnerModule,
     FlutterwaveModule,
+    TabsModule.forRoot(),
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
     })
