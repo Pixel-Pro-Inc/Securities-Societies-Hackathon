@@ -5,6 +5,8 @@ import { SharedService } from './shared.service';
   providedIn: 'root'
 })
 export class AccountService{
+  private currentUserSource = this.shared.getUser();
+  currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private shared: SharedService) {
   }

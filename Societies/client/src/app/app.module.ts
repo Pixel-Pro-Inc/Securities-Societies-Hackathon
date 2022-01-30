@@ -12,7 +12,7 @@ import { SignupComponent } from './signup/signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TextInputComponent } from './_forms/text-input/text-input.component';
 import {BsDatepickerModule} from 'ngx-bootstrap/datepicker';
-import { DateInputComponent } from './_forms/date-input/date-input.component'
+import { DateInputComponent } from './_forms/date-input/date-input.component';
 import { ToastrModule } from 'ngx-toastr';
 import { LoginComponent } from './login/login.component';
 import { ComplianceComponent } from './compliance/compliance.component';
@@ -23,6 +23,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { MyapplicationsComponent } from './myapplications/myapplications.component';
 import { AdminComponent } from './admin/admin.component';
 import { MessagesComponent } from './messages/messages.component';
+import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
+import { MemberDetailComponent } from './members/member-detail/member-detail.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,9 @@ import { MessagesComponent } from './messages/messages.component';
     NameauthComponent,
     MyapplicationsComponent,
     AdminComponent,
-    MessagesComponent
+    MessagesComponent,
+    MemberMessagesComponent,
+    MemberDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +57,8 @@ import { MessagesComponent } from './messages/messages.component';
     NgxSpinnerModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
-    })
+    }),
+    TabsModule.forRoot()
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
