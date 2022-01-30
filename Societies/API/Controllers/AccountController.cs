@@ -233,7 +233,9 @@ namespace API.Controllers
                 Lastname = signUpDto.Lastname,
                 Email = signUpDto.Email,
                 Phonenumber = signUpDto.Phonenumber,
-                Token = _tokenService.CreateToken(appUser)
+                Token = _tokenService.CreateToken(appUser),
+                Admin = appUser.Admin,
+                Username = appUser.GetUserName()
             };
         }
         async Task<int> GetId()
@@ -273,7 +275,8 @@ namespace API.Controllers
                 Email = user.Email,
                 Phonenumber = user.PhoneNumber,
                 Token = _tokenService.CreateToken(user),
-                Admin = user.Admin
+                Admin = user.Admin,
+                Username = user.GetUserName()
             };
         }
        //I removed GetUser from here and put it in BaseApiController cause I needed it in MessageController

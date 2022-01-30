@@ -40,8 +40,8 @@ namespace API.Controllers
             {
                 Sender = sender,
                 Recipient = recipient,
-                SenderUsername = sender.username,
-                RecipientUsername = recipient.username,
+                SenderUsername = sender.GetUserName(),
+                RecipientUsername = recipient.GetUserName(),
                 content = createMessageDto.Content
             };
 
@@ -74,9 +74,9 @@ namespace API.Controllers
             IQueryable<Message> checlist= query.AsQueryable<Message>(); //needs to be IQueryable 
             checlist = messageParams.Container switch
             {
-                "Inbox" => checlist.Where(u => u.Recipient.username == messageParams.Username),
-                "Outbox" => checlist.Where(u => u.Sender.username == messageParams.Username),
-                _ => checlist.Where(u => u.Recipient.username == messageParams.Username && u.DateRead == null)
+                "Inbox" => checlist.Where(u => u.Recipient.GetUserName() == messageParams.Username),
+                "Outbox" => checlist.Where(u => u.Sender.GetUserName() == messageParams.Username),
+                _ => checlist.Where(u => u.Recipient.GetUserName() == messageParams.Username && u.DateRead == null)
             };
 
             var messages = checlist.ProjectTo<MessageDto>(_mapper.ConfigurationProvider);
@@ -85,30 +85,30 @@ namespace API.Controllers
         }
         #endregion
         #region Get Message Thread
-        [HttpGet("thread/{otherusername}")]
+        [HttpGet("thread/{otherGetUserName()}")]
         public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessagedThread(string UserEmail, string otherusername)
         {
             User sender = await GetUser(UserEmail); //We using this method cause this is all Yewo left to our disposal and I'm not going to write more code
-            var currentUsername = sender.username;
+            var currentusername = sender.GetUserName();
 
-            return Ok(await GetThread(currentUsername,otherusername));
+            return Ok(await GetThread(currentusername, otherusername));
 
         }
 
-        async Task<IEnumerable<MessageDto>> GetThread(string currentUsername, string recipientUsername)
+        async Task<IEnumerable<MessageDto>> GetThread(string currentusername, string recipientusername)
         {
             var answer= await _firebaseDataContext.GetData<Message>("Messages");
 
             //This gets all the messages that involve the user and had sent between them and some other person. Basically their conversations
-            var messages = answer.Where(m=>m.Recipient.username==currentUsername
-                &&m.Sender.username==m.Recipient.username
-                ||m.Recipient.username==recipientUsername
-                &&m.Sender.username==currentUsername)
+            var messages = answer.Where(m=>m.Recipient.GetUserName()==currentusername
+                &&m.Sender.GetUserName()==m.Recipient.GetUserName()
+                ||m.Recipient.GetUserName()==recipientusername
+                &&m.Sender.GetUserName()==currentusername)
                 .OrderBy(m=>m.MessageSent)
                 .ToList();
 
             //Checks for unread messages
-            var unreadMessages= messages.Where(m=> m.DateRead==null&&m.Recipient.username==currentUsername).ToList(); 
+            var unreadMessages= messages.Where(m=> m.DateRead==null&&m.Recipient.GetUserName()==currentusername).ToList(); 
             if(unreadMessages.Any())
             {
                 foreach(var message in unreadMessages)

@@ -30,10 +30,21 @@ namespace API.Controllers
 
         //Removed this from AccountController so it can be shared with all controllers but noone else, hence the protected modifier
         //Also Why did you decided to use only email and PhoneNumbers here
-        protected async Task<User> GetUser(string accountID)
+        public async Task<User> GetUser(string accountID)
         {
+            if (string.IsNullOrEmpty(accountID))
+                return null;
+
             List<User> users = await _firebaseDataContext.GetData<User>("Account");
-            return users.Where(u => u.Email == accountID || u.PhoneNumber.ToString() == accountID).ToList().Count != 0 ? users.Where(u => u.Email == accountID || u.PhoneNumber.ToString() == accountID).ToList()[0] : null;
+
+            int count = users.Where(u => u.Email == accountID || u.PhoneNumber.ToString() == accountID).ToList().Count;
+
+            if (count != 0)
+            {
+                return users.Where(u => u.Email == accountID || u.PhoneNumber.ToString() == accountID).ToList()[0];
+            }
+
+            return null;
         }
     }
 }

@@ -41,9 +41,9 @@ namespace API.Data
                 .AsQueryable();
             query = messageParams.Container switch
             {
-                "Inbox" => query.Where(u => u.Recipient.username == messageParams.Username),
-                "Outbox" => query.Where(u => u.Sender.username == messageParams.Username),
-                _ => query.Where(u => u.Recipient.username == messageParams.Username && u.DateRead == null)
+                "Inbox" => query.Where(u => u.Recipient.GetUserName() == messageParams.Username),
+                "Outbox" => query.Where(u => u.Sender.GetUserName() == messageParams.Username),
+                _ => query.Where(u => u.Recipient.GetUserName() == messageParams.Username && u.DateRead == null)
             };
 
             var messages = query.ProjectTo<MessageDto>(_mapper.ConfigurationProvider);
