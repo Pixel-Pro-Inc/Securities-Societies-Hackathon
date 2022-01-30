@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { ServicesService } from '../_services/services.service';
 import { SharedService } from '../_services/shared.service';
 
@@ -18,9 +20,18 @@ export class NameauthComponent implements OnInit {
   done3 = false;
   done4 = false;
 
-  constructor(private fb: FormBuilder, private shared: SharedService, private servicesService: ServicesService) { }
+  routeSub: Subscription;
+
+  id: any;
+
+  constructor(private fb: FormBuilder, private shared: SharedService, private servicesService: ServicesService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.routeSub = this.route.params.subscribe(
+      params => {
+        this.id = (params['id']);
+      }
+    );
     this.initializeForm();
   }
 
@@ -57,11 +68,16 @@ export class NameauthComponent implements OnInit {
     let model: any = {};
 
     model.files = this.files;
-    model.accountId = user.email == null? user.phonenumber : user.email
+    model.accountId = user.email == null? user.phonenumber : user.email;
     model.societyType = this.nameAuthForm.controls['society'].value;
     model.societyNames = this.nameAuthForm.controls['socName'].value;
-    model.objectives = this.nameAuthForm.controls['socName'].value;
+    model.objectives = this.nameAuthForm.controls['objectives'].value;
 
-    this.servicesService.nameAuth(model, this);
+    if(this.id == null){
+      this.servicesService.nameAuth(model, this);
+      return;
+    }
+
+    this.servicesService.nameAuthEdit(this.id, model, this);  
   }
 }

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AppComponent } from '../app.component';
 import { BusyService } from './busy.service';
 
 @Injectable({
@@ -27,4 +28,5 @@ export class SharedService {
 
   public hasApplication: boolean;
   public siteTelephone: string = "3214567";
+  public appComp: AppComponent = null;
 }

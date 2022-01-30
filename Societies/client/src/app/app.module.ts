@@ -22,6 +22,11 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { MyapplicationsComponent } from './myapplications/myapplications.component';
 import { AdminComponent } from './admin/admin.component';
+import { ApplicationTempComponent } from './_templates/application-temp/application-temp.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { PaypointComponent } from './paypoint/paypoint.component';
+import { FlutterwaveModule } from "flutterwave-angular-v3";
+import { CertComponent } from './cert/cert.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +42,11 @@ import { AdminComponent } from './admin/admin.component';
     AmmendmentsComponent,
     NameauthComponent,
     MyapplicationsComponent,
-    AdminComponent
+    AdminComponent,
+    ApplicationTempComponent,
+    RegistrationComponent,
+    PaypointComponent,
+    CertComponent
   ],
   imports: [
     BrowserModule,
@@ -48,10 +57,11 @@ import { AdminComponent } from './admin/admin.component';
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),
     NgxSpinnerModule,
+    FlutterwaveModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
     })
-  ],
+    ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
   ],

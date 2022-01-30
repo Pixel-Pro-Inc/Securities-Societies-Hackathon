@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { AccountService } from '../_services/account.service';
+import { SharedService } from '../_services/shared.service';
 
 @Component({
   selector: 'app-signup',
@@ -14,7 +15,7 @@ export class SignupComponent implements OnInit {
   firstdone = false;
   showOmang = false;
 
-  constructor(private fb: FormBuilder, private accountService: AccountService) { }
+  constructor(private fb: FormBuilder, private accountService: AccountService, public shared: SharedService) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -89,7 +90,9 @@ export class SignupComponent implements OnInit {
       reader.readAsDataURL(file);
 
       reader.onload = () => {
-        this.omangFill(reader.result as string);
+        let m: any = {}
+        m.img = reader.result as string;
+        this.omangFill(m);
       };
 
     }
@@ -104,6 +107,8 @@ export class SignupComponent implements OnInit {
       this.signupForm.controls['firstname'].setValue(response.firstname);
       this.signupForm.controls['lastname'].setValue(response.lastname);
       this.signupForm.controls['dateofbirth'].setValue(response.dateofbirth);
+
+      this.shared.busyService.idle();
     });
   }
 

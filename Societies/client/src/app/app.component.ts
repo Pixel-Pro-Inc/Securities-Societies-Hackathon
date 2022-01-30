@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SharedService } from './_services/shared.service';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'client';
+
+  constructor(private shared: SharedService){
+    this.shared.appComp = this;
+  }
 
   mybutton = document.getElementById("myBtn");
 

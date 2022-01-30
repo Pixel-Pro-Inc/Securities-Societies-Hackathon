@@ -23,9 +23,11 @@ namespace API.Controllers
         }
         #region OmangFill
         [HttpPost("omangfill")]
-        public async Task<ActionResult<OmangFillDto>> OmangFill(string omangImage)
+        public async Task<ActionResult<OmangFillDto>> OmangFill(OmangImageDto omangImageDto)
         {
-            if (string.IsNullOrEmpty(omangImage))
+            string omangImage = omangImageDto.img;
+
+            if (!string.IsNullOrEmpty(omangImage))
             {
                 OcrResult result = null;
                 var Ocr = new IronTesseract();
@@ -41,6 +43,9 @@ namespace API.Controllers
 
                 if (omangFillDto == null)
                     return BadRequest("Please try again with a different picture");
+
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
 
                 return omangFillDto;
             }
@@ -157,10 +162,7 @@ namespace API.Controllers
             if (omangFillDto.firstname == "")
                 return null;
 
-            omangFillDto.dateofbirth = DateTime.Parse(birthDateStore);
-
-            if (omangFillDto.dateofbirth == new DateTime())
-                return null;
+            omangFillDto.dateofbirth = birthDateStore.Replace('/', ' ');
 
             //Manipulations
             omangFillDto.firstname = omangFillDto.firstname.Replace("_", string.Empty);
@@ -201,8 +203,15 @@ namespace API.Controllers
         {
             using var hmac = new HMACSHA512();
 
-            if (GetUser(signUpDto.Email) != null || GetUser(signUpDto.Phonenumber.ToString()) != null)
+            if (await GetUser(signUpDto.Phonenumber.ToString()) != null)
+            {
                 return BadRequest("You already have an account");
+            }
+
+            if (await GetUser(signUpDto.Email) != null)
+            {
+                return BadRequest("You already have an account");
+            }                            
 
             User appUser = new User()
             {
@@ -212,7 +221,7 @@ namespace API.Controllers
                 DateOfBirth = signUpDto.Dateofbirth,
                 PasswordSalt = hmac.Key,
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(signUpDto.Password)),
-                PhoneNumber = signUpDto.Phonenumber
+                PhoneNumber = signUpDto.Phonenumber,
             };
 
             appUser.Id = await GetId();
@@ -263,14 +272,26 @@ namespace API.Controllers
                 Lastname = user.LastName,
                 Email = user.Email,
                 Phonenumber = user.PhoneNumber,
-                Token = _tokenService.CreateToken(user)
+                Token = _tokenService.CreateToken(user),
+                Admin = user.Admin
             };
         }
 
         private async Task<User> GetUser(string accountID)
         {
+            if (string.IsNullOrEmpty(accountID))
+                return null;
+
             List<User> users = await _firebaseDataContext.GetData<User>("Account");
-            return users.Where(u => u.Email == accountID || u.PhoneNumber.ToString() == accountID).ToList().Count != 0? users.Where(u => u.Email == accountID || u.PhoneNumber.ToString() == accountID).ToList()[0] : null;
+
+            int count = users.Where(u => u.Email == accountID || u.PhoneNumber.ToString() == accountID).ToList().Count;
+
+            if (count != 0)
+            {
+                return users.Where(u => u.Email == accountID || u.PhoneNumber.ToString() == accountID).ToList()[0];
+            }
+
+            return null;
         }
         #endregion
     }

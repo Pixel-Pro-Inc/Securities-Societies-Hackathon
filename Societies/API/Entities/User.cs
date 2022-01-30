@@ -15,5 +15,6 @@ namespace API.Entities
         public int PhoneNumber { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
+        public bool Admin { get; set; }
     }
 }

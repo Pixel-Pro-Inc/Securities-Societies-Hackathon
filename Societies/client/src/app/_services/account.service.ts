@@ -9,9 +9,12 @@ export class AccountService{
   constructor(private shared: SharedService) {
   }
 
-  omangFill(img: any){
-    this.shared.busyService.busy('Scanning');
-    var post = this.shared.http.post(this.shared.baseUrl + 'account/omangfill', img);
+  omangFill(model: any){
+    this.shared.busyService.busy('Scanning Your Omang');
+
+    model.Id = 5;
+
+    var post = this.shared.http.post(this.shared.baseUrl + 'account/omangfill', model);
 
     post.subscribe( response => {
       console.log(response);
@@ -21,8 +24,6 @@ export class AccountService{
       this.shared.toastr.error(error.error);
       return;
     });
-    
-    this.shared.busyService.idle();
     return post;
   }
 
