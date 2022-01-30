@@ -50,12 +50,32 @@ namespace API.Data
 
             return await PagedList<MessageDto>.CreateAsync(messages, messageParams.PageNumber, messageParams.pageSize);
         }
-
-        public Task<IEnumerable<MessageDto>> GetMessageThread(int currentUserId, int recipientId)
+        #if nodatacontext
+        [Obsolete] //Don't use this method. It neeeeeds datacontext
+        public async Task<IEnumerable<MessageDto>> GetMessageThread(string currentUsername, string recipientUsername)
         {
-            throw new NotImplementedException();
-        }
+            var messages= await _context.Messages
+                .Where(m=>m.Recipient.username==currentUsername
+                &&m.Sender.username==m.Recipient.username
+                ||m.Recipient.username==recipientUsername
+                &&m.Sender.username==currentUsername)
+                .ToListAsync();
 
+            var unreadMessages= messages.Where(messages=> messages.DateRead==null&&messages.Recipient.Username==currentUsername).ToList();
+
+            if(unreadMessages.Any())
+            {
+                foreach(var message in unreadMessages)
+                {
+                    message.DateRead=DateTime.Now;
+                }
+                await _context.SaveChangesAsync();
+            }
+            return _mapper.Map<IEnumerable<MessageDto>>(messages);
+
+        }
+        #endif
+        public async Task<IEnumerable<MessageDto>> GetMessageThread(string currentUsername, string recipientUsername)=> throw new NotImplementedException();
         public async Task<bool> SaveAllAsync() => await _context.SaveChangesAsync() > 0;
     }
 }

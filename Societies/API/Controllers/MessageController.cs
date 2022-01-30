@@ -26,7 +26,8 @@ namespace API.Controllers
             _mapper = mapper;
         }
 
-        [HttpPost]
+        #region Create Messages
+         [HttpPost]
         public async Task<ActionResult<MessageDto>> CreateMessage(CreateMessageDto createMessageDto)
         {
             User sender = await GetUser(createMessageDto.SenderEmail);
@@ -44,7 +45,7 @@ namespace API.Controllers
                 content = createMessageDto.Content
             };
 
-            _firebaseDataContext.StoreData("Messages/" + sender.Id+ message.Id, message);
+            _firebaseDataContext.StoreData("Messages/" + sender.Id+ message.Id, message); //Consider replacing message with _mapper.Map<MessageDto>(message)
             //return firebase style expected
 
             //The lines below may give problems cause there is no database context in MessageRepository.
@@ -55,9 +56,10 @@ namespace API.Controllers
             return Ok(_mapper.Map<MessageDto>(message));
 
         }
-
-        
-        [HttpGet]//apparently we don't add anything here cause we will be using query string
+        #endregion
+        #region Get Messages 
+        //apparently we don't add anything here cause we will be using query string
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessagesForUser([FromQuery] MessageParams messageParams)
         {
             var messages = await GetMessages(messageParams); //firebase call
@@ -81,5 +83,47 @@ namespace API.Controllers
 
             return await PagedList<MessageDto>.CreateAsync(messages, messageParams.PageNumber, messageParams.pageSize);
         }
+        #endregion
+        #region Get Message Thread
+        [HttpGet("thread/{otherusername}")]
+        public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessagedThread(string UserEmail, string otherusername)
+        {
+            User sender = await GetUser(UserEmail); //We using this method cause this is all Yewo left to our disposal and I'm not going to write more code
+            var currentUsername = sender.username;
+
+            return Ok(await GetThread(currentUsername,otherusername));
+
+        }
+
+        async Task<IEnumerable<MessageDto>> GetThread(string currentUsername, string recipientUsername)
+        {
+            var answer= await _firebaseDataContext.GetData<Message>("Messages");
+
+            //This gets all the messages that involve the user and had sent between them and some other person. Basically their conversations
+            var messages = answer.Where(m=>m.Recipient.username==currentUsername
+                &&m.Sender.username==m.Recipient.username
+                ||m.Recipient.username==recipientUsername
+                &&m.Sender.username==currentUsername)
+                .OrderBy(m=>m.MessageSent)
+                .ToList();
+
+            //Checks for unread messages
+            var unreadMessages= messages.Where(m=> m.DateRead==null&&m.Recipient.username==currentUsername).ToList(); 
+            if(unreadMessages.Any())
+            {
+                foreach(var message in unreadMessages)
+                {
+                    message.DateRead=DateTime.Now;
+                    _firebaseDataContext.EditData("Messages/"+message.SenderId+message.Id,message);
+                    /*I want it to overide just the message DateRead so We might need to introduce a new node here  */ 
+                }
+            }
+            return _mapper.Map<IEnumerable<MessageDto>>(messages);
+
+        }
+
+        #endregion
+        
+
     }
 }
