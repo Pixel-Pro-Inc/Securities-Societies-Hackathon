@@ -20,7 +20,8 @@ export class MessageService {
   private messageThreadSource = new BehaviorSubject<Message[]>([]);
   messageThread$ = this.messageThreadSource.asObservable();
 
-  constructor(private shared: SharedService) { }
+  constructor(private shared: SharedService) {
+    console.log("Check here for the observable null variable in the message service it is used right here in the same message service");}
 
   getMessages(pageNumber, pageSize, container) {
     let params = getPaginationHeaders(pageNumber, pageSize);

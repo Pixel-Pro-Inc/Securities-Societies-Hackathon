@@ -9,6 +9,7 @@ export class AccountService{
   currentUser$ = this.currentUserSource.asObservable();
 
   constructor(private shared: SharedService) {
+    console.log("Check here in account service for the variable I get as observable\n it is used in ")
   }
 
   omangFill(img: any){

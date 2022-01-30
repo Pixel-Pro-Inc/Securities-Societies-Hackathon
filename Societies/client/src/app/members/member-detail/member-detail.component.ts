@@ -25,9 +25,6 @@ export class MemberDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
-
     this.route.queryParams.subscribe(params => {
       params.tab ? this.selectTab(params.tab) : this.selectTab(0);
     })
