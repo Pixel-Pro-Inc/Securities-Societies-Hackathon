@@ -22,6 +22,10 @@ import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { MyapplicationsComponent } from './myapplications/myapplications.component';
 import { AdminComponent } from './admin/admin.component';
+import { MessagesComponent } from './messages/messages.component';
+import { MemberMessagesComponent } from './members/member-messages/member-messages.component';
+import { MemberDetailComponent } from './members/member-detail/member-detail.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 @NgModule({
   declarations: [
@@ -37,7 +41,10 @@ import { AdminComponent } from './admin/admin.component';
     AmmendmentsComponent,
     NameauthComponent,
     MyapplicationsComponent,
-    AdminComponent
+    AdminComponent,
+    MessagesComponent,
+    MemberMessagesComponent,
+    MemberDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +57,8 @@ import { AdminComponent } from './admin/admin.component';
     NgxSpinnerModule,
      ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
-    })
+    }),
+    TabsModule.forRoot()
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}
